@@ -1,0 +1,10 @@
+{
+    "policy_groups": [
+        "audio",
+        "keep-display-on",
+        "networking",
+        "video",
+        "webview"
+    ],
+    "policy_version": 1.3
+}

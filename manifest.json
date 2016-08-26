@@ -1,0 +1,15 @@
+{
+    "title": "Pocket Casts",
+    "description": "Pocket Casts WebApp",
+    "name": "pocketcasts.flexiondotorg",
+    "version": "0.1",
+    "maintainer": "Martin Wimpress <code@flexion.org>",
+    "framework": "ubuntu-sdk-15.04",
+    "architecture": "all",
+    "hooks": {
+        "pocketcasts": {
+            "apparmor": "app.json",
+            "desktop": "app.desktop"
+        }
+    }
+}

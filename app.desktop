@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Pocket Casts
+Comment=Pocket Casts WebApp
+Type=Application
+Icon=icon.png
+Exec=qmlscene %u qml/Main.qml
+Terminal=false
+X-Ubuntu-Touch=true
+X-Ubuntu-Splash-Color=#F44336
+X-Ubuntu-Splash-Title=Pocket Casts
+X-Ubuntu-Splash-Image=splash.png

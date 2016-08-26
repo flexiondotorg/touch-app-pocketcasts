@@ -1,0 +1,9 @@
+README
+Makefile
+deploytophone.sh
+*.tmp
+.bzr
+.git
+.gitignore
+po
+
