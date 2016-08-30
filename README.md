@@ -10,11 +10,11 @@ menu with navigation objects.
 
 ## TODO
 
-  * Stuff
+  * Try and make playback controls available via radial navigation.
 
 ## Changes
 
-### 1.0-WIP
+### 1.0
 
   * Initial release.
 

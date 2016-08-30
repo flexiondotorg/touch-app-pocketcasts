@@ -2,7 +2,7 @@
     "title": "Pocket Casts",
     "description": "Pocket Casts WebApp",
     "name": "pocketcasts.flexiondotorg",
-    "version": "0.2",
+    "version": "1.0",
     "maintainer": "Martin Wimpress <code@flexion.org>",
     "framework": "ubuntu-sdk-15.04",
     "architecture": "all",
