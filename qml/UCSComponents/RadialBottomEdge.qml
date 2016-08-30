@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.2
 import QtFeedback 5.0
 import Ubuntu.Components 1.1
 import QtGraphicalEffects 1.0
@@ -11,7 +11,7 @@ Item {
     property string hintIconName: "view-grid-symbolic"
     property alias hintIconSource: hintIcon.source
     property color hintIconColor: UbuntuColors.coolGrey
-    property bool bottomEdgeEnabled: true
+    property bool bottomEdgeEnabled: false
 
     property real expandedPosition: 0.6 * height
     property real collapsedPosition: height - hintSize/2
