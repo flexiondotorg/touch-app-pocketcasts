@@ -138,8 +138,8 @@ MainView {
                     onTriggered: {
                         webview.goForward()
                     }
-                   text: qsTr("Forward")
-                 },
+                    text: qsTr("Forward")
+                },
                 RadialAction {
                     id: back
                     enabled: webview.canGoBack
