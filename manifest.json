@@ -1,13 +1,13 @@
 {
     "title": "Pocket Casts",
     "description": "Pocket Casts WebApp",
-    "name": "pocketcasts.flexiondotorg",
+    "name": "jbpocketcasts.flexiondotorg",
     "version": "1.0",
     "maintainer": "Martin Wimpress <code@flexion.org>",
     "framework": "ubuntu-sdk-15.04",
     "architecture": "all",
     "hooks": {
-        "pocketcasts": {
+        "jbpocketcasts": {
             "apparmor": "app.json",
             "desktop": "app.desktop"
         }
