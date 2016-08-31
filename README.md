@@ -1,4 +1,4 @@
-# Pocketcasts Ubuntu Touch webapp
+# Pocket Casts Ubuntu Touch webapp
 
 This webapp is based on ogra's alternate-webapp-container:
 
@@ -11,6 +11,11 @@ menu with navigation objects.
 ## TODO
 
   * Try and make playback controls available via radial navigation.
+  * Add radial navigation for:
+    * https://play.pocketcasts.com/web#/podcasts/discover
+    * https://play.pocketcasts.com/web#/podcasts/new_releases
+    * https://play.pocketcasts.com/web#/podcasts/in_progress
+    * https://play.pocketcasts.com/web#/podcasts/starred
 
 ## Changes
 
