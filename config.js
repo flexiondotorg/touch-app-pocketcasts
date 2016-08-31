@@ -1,5 +1,5 @@
 // the name of your app as used in the click package (required)
-var webappName = "pocketcasts.flexiondotorg"
+var webappName = "jbpocketcasts.flexiondotorg"
 
 // the start url of your app (required)
 var webappUrl = "https://play.pocketcasts.com/"
