@@ -11,7 +11,7 @@ Item {
     property string hintIconName: "view-grid-symbolic"
     property alias hintIconSource: hintIcon.source
     property color hintIconColor: UbuntuColors.coolGrey
-    property bool bottomEdgeEnabled: false
+    property bool bottomEdgeEnabled: true
 
     property real expandedPosition: 0.6 * height
     property real collapsedPosition: height - hintSize/2

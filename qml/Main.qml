@@ -8,11 +8,12 @@ import QtMultimedia 5.0
 import QtFeedback 5.0
 import "."
 import "../config.js" as Conf
+import "../keypress.js" as KeyPress
 
 MainView {
     objectName: "mainView"
 
-    applicationName: "pocketcasts.flexiondotorg"
+    applicationName: "jbpocketcasts.flexiondotorg"
 
     useDeprecatedToolbar: false
     anchorToKeyboard: true
@@ -124,29 +125,21 @@ MainView {
             visible: true
             actions: [
                 RadialAction {
-                    id: reload
-                    iconName: "reload"
-                    onTriggered: {
-                        webview.reload()
-                    }
-                    text: qsTr("Reload")
+                    id: play
+                    iconName: "media-playback-start"
+                    onTriggered: KeyPress.space()
+                    text: qsTr("Play/Pause")
                 },
                 RadialAction {
                     id: forward
-                    enabled: webview.canGoForward
-                    iconName: "go-next"
-                    onTriggered: {
-                        webview.goForward()
-                    }
+                    iconName: "media-skip-forward"
+                    onTriggered: KeyPress.right()
                     text: qsTr("Forward")
                 },
                 RadialAction {
                     id: back
-                    enabled: webview.canGoBack
-                    iconName: "go-previous"
-                    onTriggered: {
-                        webview.goBack()
-                    }
+                    iconName: "media-skip-backward"
+                    onTriggered: KeyPress.left()
                     text: qsTr("Back")
                 }
             ]
