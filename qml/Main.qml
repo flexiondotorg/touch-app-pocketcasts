@@ -8,7 +8,6 @@ import QtMultimedia 5.0
 import QtFeedback 5.0
 import "."
 import "../config.js" as Conf
-import "../keypress.js" as KeyPress
 
 MainView {
     objectName: "mainView"
@@ -51,6 +50,12 @@ MainView {
         WebContext {
             id: webcontext
             userAgent: myUA
+            userScripts: [
+                UserScript {
+                    context: contextId
+                    url: Qt.resolvedUrl("../keyscript.js")
+                }
+            ]
         }
         WebView {
             id: webview
@@ -69,6 +74,15 @@ MainView {
             preferences.appCacheEnabled: true
             preferences.javascriptCanAccessClipboard: true
             filePicker: filePickerLoader.item
+
+            readonly property string contextId: "oxide://"
+            readonly property int leftKey: 37
+            readonly property int rightKey: 39
+            readonly property int spaceKey: 32
+
+            function sendKey(key) {
+                webview.rootFrame.sendMessage(contextId, "SIMULATE_KEY_EVENT", {key: key})
+            }
 
             function navigationRequestedDelegate(request) {
                 var url = request.url.toString();
@@ -127,19 +141,19 @@ MainView {
                 RadialAction {
                     id: play
                     iconName: "media-playback-start"
-                    onTriggered: KeyPress.space()
+                    onTriggered: webview.sendKey(webview.spaceKey)
                     text: qsTr("Play/Pause")
                 },
                 RadialAction {
                     id: forward
                     iconName: "media-skip-forward"
-                    onTriggered: KeyPress.right()
+                    onTriggered: webview.sendKey(webview.rightKey)
                     text: qsTr("Forward")
                 },
                 RadialAction {
                     id: back
                     iconName: "media-skip-backward"
-                    onTriggered: KeyPress.left()
+                    onTriggered: webview.sendKey(webview.leftKey)
                     text: qsTr("Back")
                 }
             ]
