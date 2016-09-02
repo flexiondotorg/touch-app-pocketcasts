@@ -11,6 +11,7 @@ menu with navigation objects.
 ## TODO
 
   * Try and make playback controls available via radial navigation.
+    * http://paste.ubuntu.com/23119366/
   * Add radial navigation for:
     * https://play.pocketcasts.com/web#/podcasts/discover
     * https://play.pocketcasts.com/web#/podcasts/new_releases
