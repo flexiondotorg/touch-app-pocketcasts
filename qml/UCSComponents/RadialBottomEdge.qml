@@ -1,13 +1,13 @@
-import QtQuick 2.2
+import QtQuick 2.4
 import QtFeedback 5.0
-import Ubuntu.Components 1.1
+import Ubuntu.Components 1.3
 import QtGraphicalEffects 1.0
 
 Item {
     id: bottomEdge
 
     property int hintSize: units.gu(8)
-    property color hintColor: Theme.palette.normal.overlay
+    property color hintColor: UbuntuColors.porcelain
     property string hintIconName: "view-grid-symbolic"
     property alias hintIconSource: hintIcon.source
     property color hintIconColor: UbuntuColors.coolGrey
@@ -133,7 +133,7 @@ Item {
                         bottomMargin: modelData.top ? units.gu(3) : undefined
                         horizontalCenter: icon.horizontalCenter
                     }
-                    color: Theme.palette.normal.foregroundText
+                    color: UbuntuColors.porcelain
                     font.bold: true
                     fontSize: "medium"
 

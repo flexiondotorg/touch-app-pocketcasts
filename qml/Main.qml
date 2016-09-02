@@ -1,72 +1,46 @@
-import QtQuick 2.2
-import Ubuntu.Web 0.2
-import Ubuntu.Components 1.1
-import com.canonical.Oxide 1.12 as Oxide
-import "UCSComponents"
-import Ubuntu.Content 1.1
+import QtQuick 2.4
 import QtMultimedia 5.0
 import QtFeedback 5.0
-import "."
+import Ubuntu.Components 1.3
+import Ubuntu.Web 0.2
+import Ubuntu.Content 1.1
 import "../config.js" as Conf
+import "./UCSComponents"
+
 
 MainView {
+
     objectName: "mainView"
 
+    // Note! applicationName needs to match the "name" field of the click manifest
     applicationName: "jbpocketcasts.flexiondotorg"
-
-    useDeprecatedToolbar: false
     anchorToKeyboard: true
-    automaticOrientation: true
+
+    width: units.gu(100)
+    height: units.gu(75)
 
     property string myUrl: Conf.webappUrl
     property string myPattern: Conf.webappUrlPattern
-
     property string myUA: Conf.webappUA ? Conf.webappUA : "Mozilla/5.0 (Linux; Android 5.0; Nexus 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.102 Mobile Safari/537.36"
 
-    Page {
-        id: page
-        anchors {
-            fill: parent
-            bottom: parent.bottom
-        }
-        width: parent.width
-        height: parent.height
+    // as we don't need a page header just use a simple Item to contain the main content.
+    Item {
+        id: mainContent
 
-        HapticsEffect {
-            id: vibration
-            attackIntensity: 0.0
-            attackTime: 50
-            intensity: 1.0
-            duration: 10
-            fadeTime: 50
-            fadeIntensity: 0.0
-        }
+        anchors.fill: parent
 
-        SoundEffect {
-            id: clicksound
-            source: "../sounds/Click.wav"
-        }
-
-        Oxide.WebContext {
-            id: webcontext
-            userAgent: myUA
-            userScripts: [
-                Oxide.UserScript {
-                    context: webview.contextId
-                    url: Qt.resolvedUrl("../keyscript.js")
-                }
-            ]
-        }
         WebView {
             id: webview
-            anchors {
-                fill: parent
-                bottom: parent.bottom
-            } 
-            width: parent.width
-            height: parent.height
 
-            context: webcontext
+            readonly property int leftKey: 37
+            readonly property int rightKey: 39
+            readonly property int spaceKey: 32
+
+            anchors.fill: parent
+            context: OxideContext {
+                id: ctxt
+                userAgent: myUA
+            }
             url: myUrl
             preferences.localStorageEnabled: true
             preferences.allowFileAccessFromFileUrls: true
@@ -75,13 +49,8 @@ MainView {
             preferences.javascriptCanAccessClipboard: true
             filePicker: filePickerLoader.item
 
-            readonly property string contextId: "oxide://"
-            readonly property int leftKey: 37
-            readonly property int rightKey: 39
-            readonly property int spaceKey: 32
-
             function sendKey(key) {
-                webview.rootFrame.sendMessage(contextId, "SIMULATE_KEY_EVENT", {key: key})
+                webview.rootFrame.sendMessageNoReply(ctxt.ctxtId, "SIMULATE_KEY_EVENT", {key: key})
             }
 
             function navigationRequestedDelegate(request) {
@@ -101,10 +70,10 @@ MainView {
                     var tmpsearch = pattern[i].replace(/\*/g,'(.*)')
                     var search = tmpsearch.replace(/^https\?:\/\//g, '(http|https):\/\/');
                     if (url.match(search)) {
-                       isvalid = true;
-                       break
+                        isvalid = true;
+                        break
                     }
-                } 
+                }
                 if(isvalid == false) {
                     console.warn("Opening remote: " + url);
                     Qt.openUrlExternally(url)
@@ -112,7 +81,6 @@ MainView {
                 }
             }
             Component.onCompleted: {
-                preferences.localStorageEnabled = true
                 if (Qt.application.arguments[1].toString().indexOf(myUrl) > -1) {
                     console.warn("got argument: " + Qt.application.arguments[1])
                     url = Qt.application.arguments[1]
@@ -120,20 +88,23 @@ MainView {
                 console.warn("url is: " + url)
             }
             onGeolocationPermissionRequested: { request.accept() }
+
+            ThinProgressBar {
+                webview: webview
+                anchors {
+                    left: parent.left
+                    right: parent.right
+                    top: parent.top
+                }
+            }
+
             Loader {
                 id: filePickerLoader
                 source: "ContentPickerDialog.qml"
                 asynchronous: true
             }
         }
-        ThinProgressBar {
-            webview: webview
-            anchors {
-                left: parent.left
-                right: parent.right
-                top: parent.top
-            }
-        }
+
         RadialBottomEdge {
             id: nav
             visible: true
@@ -158,23 +129,40 @@ MainView {
                 }
             ]
         }
-    }
-    Connections {
-        target: Qt.inputMethod
-        onVisibleChanged: nav.visible = !nav.visible
-    }
-    Connections {
-        target: webview
-        onFullscreenChanged: nav.visible = !webview.fullscreen
-    }
-    Connections {
-        target: UriHandler
-        onOpened: {
-            if (uris.length === 0 ) {
-                return;
+
+        Connections {
+            target: Qt.inputMethod
+            onVisibleChanged: nav.visible = !nav.visible
+        }
+        Connections {
+            target: webview
+            onFullscreenChanged: nav.visible = !webview.fullscreen
+        }
+
+        HapticsEffect {
+            id: vibration
+            attackIntensity: 0.0
+            attackTime: 50
+            intensity: 1.0
+            duration: 10
+            fadeTime: 50
+            fadeIntensity: 0.0
+        }
+
+        SoundEffect {
+            id: clicksound
+            source: "../sounds/Click.wav"
+        }
+
+        Connections {
+            target: UriHandler
+            onOpened: {
+                if (uris.length === 0 ) {
+                    return;
+                }
+                webview.url = uris[0]
+                console.warn("uri-handler request")
             }
-            webview.url = uris[0]
-            console.warn("uri-handler request")
         }
     }
 }
