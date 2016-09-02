@@ -3,6 +3,7 @@ import QtMultimedia 5.0
 import QtFeedback 5.0
 import Ubuntu.Components 1.3
 import Ubuntu.Web 0.2
+import com.canonical.Oxide 1.12 as Oxide
 import Ubuntu.Content 1.1
 import "../config.js" as Conf
 import "./UCSComponents"
