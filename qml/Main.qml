@@ -1,7 +1,7 @@
 import QtQuick 2.2
 import Ubuntu.Web 0.2
 import Ubuntu.Components 1.1
-import com.canonical.Oxide 1.0 as Oxide
+import com.canonical.Oxide 1.12 as Oxide
 import "UCSComponents"
 import Ubuntu.Content 1.1
 import QtMultimedia 5.0
@@ -47,12 +47,12 @@ MainView {
             source: "../sounds/Click.wav"
         }
 
-        WebContext {
+        Oxide.WebContext {
             id: webcontext
             userAgent: myUA
             userScripts: [
-                UserScript {
-                    context: contextId
+                Oxide.UserScript {
+                    context: webview.contextId
                     url: Qt.resolvedUrl("../keyscript.js")
                 }
             ]
